@@ -17,9 +17,7 @@ public class AIPlayer{
     }
     
     public void playTurn(){
-        char[][] state = context.getGame();
-
-        minimax(deepCopy(state), 2, true);
+        minimax(context.getGame(), 2, true);
 
         context.placePiece(mark, bestX, bestY);
     }
@@ -73,8 +71,7 @@ public class AIPlayer{
         }
     }
 
-
-    private int score(BoardState node){
+    private int score(BoardState node){ //Utility function. Block, stop forks, watch for winning setups.
         if(node.winner(mark)){
             return 10;
         }
@@ -96,15 +93,5 @@ public class AIPlayer{
         else{
             return 0;
         }
-    }
-
-    private char[][] deepCopy(char[][] toCopy){
-        char[][] copy = new char[toCopy.length][toCopy.length];
-
-        for(int i = 0; i < toCopy.length; i++)
-            for(int j = 0; j < toCopy.length; j++)
-                copy[i][j] = toCopy[i][j];
-
-        return copy;
     }
 }
